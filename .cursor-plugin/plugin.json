@@ -1,0 +1,19 @@
+{
+  "name": "cortex-appsec",
+  "displayName": "Cortex AppSec (Palo Alto Networks)",
+  "version": "1.0.0",
+  "description": "Shift security left in Cursor with real-time SAST guardrails and supply chain package risk enrichment powered by Cortex AppSec.",
+  "author": "Palo Alto Networks",
+  "homepage": "https://www.paloaltonetworks.com/cortex",
+  "repository": "https://github.com/PaloAltoNetworks/AppSecMCP",
+  "license": "MIT",
+  "keywords": [
+    "security",
+    "appsec",
+    "sast",
+    "supply-chain",
+    "mcp",
+    "palo-alto-networks",
+    "cortex"
+  ]
+}
