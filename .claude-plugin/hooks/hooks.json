@@ -1,0 +1,26 @@
+{
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash -c 'CORTEX_HIDE_UPDATE_NOTICE=1 cortexcli --api-base-url \"$CORTEX_API_BASE_URL\" --api-key \"$CORTEX_API_KEY\" --api-key-id \"$CORTEX_KEY_ID\" code ai-hook --agent claude-code --framework combined'"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "bash -c 'CORTEX_HIDE_UPDATE_NOTICE=1 cortexcli --api-base-url \"$CORTEX_API_BASE_URL\" --api-key \"$CORTEX_API_KEY\" --api-key-id \"$CORTEX_KEY_ID\" code ai-hook --agent claude-code --framework iac'"
+          }
+        ]
+      }
+    ]
+  }
+}
