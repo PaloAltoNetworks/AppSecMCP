@@ -1,0 +1,14 @@
+{
+  "name": "cortex-appsec-marketplace",
+  "owner": {
+    "name": "Palo Alto Networks",
+    "url": "https://www.paloaltonetworks.com/cortex"
+  },
+  "plugins": [
+    {
+      "name": "cortex-appsec",
+      "source": "./plugins/cursor-plugin",
+      "description": "Shift security left in Cursor with real-time SAST guardrails and supply chain package risk enrichment powered by Cortex AppSec."
+    }
+  ]
+}
