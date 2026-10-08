@@ -9,6 +9,8 @@
   "homepage": "https://www.paloaltonetworks.com/cortex",
   "repository": "https://github.com/PaloAltoNetworks/AppSecMCP",
   "license": "MIT",
+  "icon": "${CLAUDE_PLUGIN_ROOT}/.claude-plugin/icon.png",
+  "privacyPolicyUrl": "https://www.paloaltonetworks.com/legal-notices/privacy",
   "keywords": [
     "security",
     "appsec",
@@ -17,5 +19,27 @@
     "mcp",
     "palo-alto-networks",
     "cortex"
-  ]
+  ],
+  "userConfig": {
+    "cortex_api_base_url": {
+      "type": "string",
+      "title": "Cortex API base URL",
+      "description": "Base URL of your Cortex API gateway, e.g. https://api-<tenant>.xdr.us.paloaltonetworks.com (no trailing slash).",
+      "required": true
+    },
+    "cortex_api_key": {
+      "type": "string",
+      "title": "Cortex API key",
+      "description": "The Cortex API key secret with AppSec permissions. Stored by Claude Code and sent only to your Cortex tenant.",
+      "required": true,
+      "sensitive": true
+    },
+    "cortex_key_id": {
+      "type": "string",
+      "title": "Cortex API key ID",
+      "description": "The Cortex API key ID associated with your API key.",
+      "required": true,
+      "sensitive": true
+    }
+  }
 }

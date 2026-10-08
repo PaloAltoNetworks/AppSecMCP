@@ -6,7 +6,8 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash -c 'CORTEX_HIDE_UPDATE_NOTICE=1 cortexcli --api-base-url \"$CORTEX_API_BASE_URL\" --api-key \"$CORTEX_API_KEY\" --api-key-id \"$CORTEX_KEY_ID\" code ai-hook --agent claude-code --framework combined'"
+            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/scan.sh",
+            "args": ["combined"]
           }
         ]
       }
@@ -17,7 +18,8 @@
         "hooks": [
           {
             "type": "command",
-            "command": "bash -c 'CORTEX_HIDE_UPDATE_NOTICE=1 cortexcli --api-base-url \"$CORTEX_API_BASE_URL\" --api-key \"$CORTEX_API_KEY\" --api-key-id \"$CORTEX_KEY_ID\" code ai-hook --agent claude-code --framework iac'"
+            "command": "${CLAUDE_PLUGIN_ROOT}/scripts/scan.sh",
+            "args": ["iac"]
           }
         ]
       }
