@@ -37,58 +37,6 @@ AppSecMCP/
 └── README.md
 ```
 
-Each plugin may later grow `skills/` and `commands/` subdirectories. They are
-omitted until there is something to put in them.
-
-### Why two plugin directories instead of one
-
-The two agents are **not** config-compatible. Keeping a single merged plugin would
-silently break one host or the other:
-
-| Concern | Claude Code | Cursor |
-|---|---|---|
-| Manifest directory | `.claude-plugin/` | `.cursor-plugin/` |
-| Hook event keys | `PreToolUse` / `PostToolUse` | `preToolUse` / `postToolUse` |
-| Hook entry shape | nested inner `hooks[]` array | flat object |
-| Top-level `version` in hooks | not used | `"version": 1` required |
-| `failClosed` | not supported | supported |
-| MCP file | `.mcp.json` | `mcp.json` |
-| MCP variables | `${VAR}` | `${env:VAR}` |
-| CLI flag | `--agent claude-code` | `--agent cursor` |
-| Blocking mechanism | exit `1`, native `warn` | exit `2` + single-use ack file |
-
-Splitting per agent means each marketplace installs only valid config, and a change
-to one agent's hooks cannot regress the other.
-
-### How marketplace routing works
-
-Each root marketplace file declares the plugin and points at its subdirectory with a
-relative `source` path:
-
-```json
-{
-  "name": "cortex-appsec-marketplace",
-  "owner": { "name": "Palo Alto Networks" },
-  "plugins": [
-    {
-      "name": "cortex-appsec",
-      "source": "./plugins/claude-plugin",
-      "description": "..."
-    }
-  ]
-}
-```
-
-The marketplace resolves `source` relative to the repository root and loads the
-manifest from that subdirectory.
-
-> **Only the plugin subdirectory is installed.** Anything outside it — a sibling
-> plugin, a shared helper directory, or the repository root — will not exist on an
-> end-user machine. A hook or MCP config must therefore never reference a path
-> outside its own plugin directory. Anything a hook executes at runtime must live
-> inside that directory or be provided by the externally installed `cortexcli`
-> binary.
-
 ---
 
 ## Core Capabilities & Tools
@@ -102,7 +50,7 @@ manifest from that subdirectory.
    - **Why to use it:** Protects your project before importing or adding new packages to manifests (such as `package.json`, `requirements.txt`, `pom.xml`, `go.mod`, etc.).
 
 3. **Shift-left scanning hooks**
-   - Hooks invoke the `cortexcli` binary on every file write/edit, scanning for secrets, SCA and IaC issues **before** the content reaches disk.
+   - Hooks invoke the `cortexcli` binary on every file write/edit, scanning for secrets and SCA issues **before** the content reaches disk, and IAC after file was written.
 
 ---
 
@@ -188,21 +136,6 @@ cursor .
 > On macOS and Linux, GUI applications launched from the Dock do not inherit
 > variables from `~/.zshrc` or `~/.bashrc`. Launching via `cursor .` ensures all
 > exported variables are passed to Cursor.
-
----
-
-## Contributing
-
-When changing plugin behavior:
-
-1. Apply the change to **both** `plugins/claude-plugin` and `plugins/cursor-plugin`
-   unless it is genuinely agent-specific.
-2. Respect each agent's hook schema — see the table above. The two `hooks.json`
-   files are **not** interchangeable.
-3. Keep the `name` field identical (`cortex-appsec`) across both manifests, and bump
-   `version` in both.
-4. Never point a hook command or MCP config at a path outside its own plugin
-   directory.
 
 ---
 
