@@ -9,7 +9,7 @@
   "homepage": "https://www.paloaltonetworks.com/cortex",
   "repository": "https://github.com/PaloAltoNetworks/AppSecMCP",
   "license": "MIT",
-  "icon": "${CLAUDE_PLUGIN_ROOT}/.claude-plugin/icon.png",
+  "icon": "./.claude-plugin/icon.png",
   "privacyPolicyUrl": "https://www.paloaltonetworks.com/legal-notices/privacy",
   "keywords": [
     "security",
